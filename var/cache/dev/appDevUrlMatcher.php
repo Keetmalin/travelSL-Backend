@@ -203,6 +203,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
             not_user_photographer_page:
 
+            // user_guide_page
+            if ($pathinfo === '/user/guidePage') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_guide_page;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadGuidePageAction',  '_route' => 'user_guide_page',);
+            }
+            not_user_guide_page:
+
+            // user_ride_page
+            if ($pathinfo === '/user/ridePage') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_ride_page;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadRidePageAction',  '_route' => 'user_ride_page',);
+            }
+            not_user_ride_page:
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

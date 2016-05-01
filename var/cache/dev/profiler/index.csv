@@ -322,3 +322,9 @@ fc2af3,::1,GET,http://localhost/travelSL/web/app_dev.php/user/photographerPage,1
 9f174f,::1,GET,http://localhost/travelSL/web/app_dev.php/user/registerPhotographer?account_id=658947,1462053920,,200
 a61a5a,::1,GET,http://localhost/travelSL/web/app_dev.php/user/photographerPage,1462053928,,200
 abf872,::1,GET,http://localhost/travelSL/web/app_dev.php/user/photographerPage,1462072512,,200
+5277c6,::1,GET,http://localhost/travelSL/web/app_dev.php/user/guidePage,1462075639,99660c,200
+99660c,::1,GET,http://localhost/travelSL/web/app_dev.php/user/guidePage,1462075639,,500
+7b7a92,::1,GET,http://localhost/travelSL/web/app_dev.php/user/guidePage,1462075690,,200
+402189,::1,GET,http://localhost/travelSL/web/app_dev.php/user/guidePage,1462076369,,200
+75b5b6,::1,GET,http://localhost/travelSL/web/app_dev.php/user/ridePage,1462080210,,200
+42a49c,::1,GET,http://localhost/travelSL/web/app_dev.php/user/ridePage,1462080281,,200

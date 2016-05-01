@@ -215,5 +215,34 @@ class AuthenticationController extends Controller
         return $response;
     }
 
+    public function loadGuidePageAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,guide WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = guide.Corporate_Account_account_id);');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function loadRidePageAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,ride WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = ride.Corporate_Account_account_id);');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
 
 }

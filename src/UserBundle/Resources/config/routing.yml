@@ -42,3 +42,13 @@ user_photographer_page:
     path:     /photographerPage
     defaults: { _controller: UserBundle:Authentication:loadPhotographerPage }
     methods:  ['GET']
+
+user_guide_page:
+    path:     /guidePage
+    defaults: { _controller: UserBundle:Authentication:loadGuidePage }
+    methods:  ['GET']
+
+user_ride_page:
+    path:     /ridePage
+    defaults: { _controller: UserBundle:Authentication:loadRidePage }
+    methods:  ['GET']
