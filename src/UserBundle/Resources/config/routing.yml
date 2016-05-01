@@ -52,3 +52,38 @@ user_ride_page:
     path:     /ridePage
     defaults: { _controller: UserBundle:Authentication:loadRidePage }
     methods:  ['GET']
+
+user_destination_page:
+    path:     /destinationPage
+    defaults: { _controller: UserBundle:Authentication:loadDestinationPage }
+    methods:  ['GET']
+
+user_add_new_destination:
+    path:     /addNewDestination
+    defaults: { _controller: UserBundle:Authentication:addNewDestination }
+    methods:  ['GET']
+
+user_add_new_contact:
+    path:     /addNewContact
+    defaults: { _controller: UserBundle:Authentication:addNewContact }
+    methods:  ['GET']
+
+user_load_police:
+    path:     /loadPolice
+    defaults: { _controller: UserBundle:Authentication:loadPolice }
+    methods:  ['GET']
+
+user_load_hospital:
+    path:     /loadHospital
+    defaults: { _controller: UserBundle:Authentication:loadHospital }
+    methods:  ['GET']
+
+user_load_Bank:
+    path:     /loadBank
+    defaults: { _controller: UserBundle:Authentication:loadBank }
+    methods:  ['GET']
+
+user_load_air_line:
+    path:     /loadAirLine
+    defaults: { _controller: UserBundle:Authentication:loadAirLine }
+    methods:  ['GET']

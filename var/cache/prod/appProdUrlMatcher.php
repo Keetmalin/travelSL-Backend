@@ -152,6 +152,89 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             }
             not_user_ride_page:
 
+            // user_destination_page
+            if ($pathinfo === '/user/destinationPage') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_destination_page;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadDestinationPageAction',  '_route' => 'user_destination_page',);
+            }
+            not_user_destination_page:
+
+            if (0 === strpos($pathinfo, '/user/addNew')) {
+                // user_add_new_destination
+                if ($pathinfo === '/user/addNewDestination') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_add_new_destination;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::addNewDestinationAction',  '_route' => 'user_add_new_destination',);
+                }
+                not_user_add_new_destination:
+
+                // user_add_new_contact
+                if ($pathinfo === '/user/addNewContact') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_add_new_contact;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::addNewContactAction',  '_route' => 'user_add_new_contact',);
+                }
+                not_user_add_new_contact:
+
+            }
+
+            if (0 === strpos($pathinfo, '/user/load')) {
+                // user_load_police
+                if ($pathinfo === '/user/loadPolice') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_load_police;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadPoliceAction',  '_route' => 'user_load_police',);
+                }
+                not_user_load_police:
+
+                // user_load_hospital
+                if ($pathinfo === '/user/loadHospital') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_load_hospital;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadHospitalAction',  '_route' => 'user_load_hospital',);
+                }
+                not_user_load_hospital:
+
+                // user_load_Bank
+                if ($pathinfo === '/user/loadBank') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_load_Bank;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadBankAction',  '_route' => 'user_load_Bank',);
+                }
+                not_user_load_Bank:
+
+                // user_load_air_line
+                if ($pathinfo === '/user/loadAirLine') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_load_air_line;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadAirLineAction',  '_route' => 'user_load_air_line',);
+                }
+                not_user_load_air_line:
+
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

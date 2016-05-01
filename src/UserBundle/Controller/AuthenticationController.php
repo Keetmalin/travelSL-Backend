@@ -245,4 +245,138 @@ class AuthenticationController extends Controller
         return $response;
     }
 
+    public function loadDestinationPageAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM location;');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+
+    public function addNewDestinationAction(Request $request) {
+
+        $locationID = $request->query->get('locationID');
+        $nameD = $request->query->get('nameD');
+        $descriptionD = $request->query->get('descriptionD');
+        $latD = $request->query->get('latD');
+        $longD = $request->query->get('longD');
+
+        // create prepared statements for USer table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('INSERT INTO location VALUES (:locationID ,:nameD, :descriptionD,:latD, :longD , null);');
+        $stmt->bindValue(':locationID', $locationID);
+        $stmt->bindValue(':nameD', $nameD);
+        $stmt->bindValue(':descriptionD', $descriptionD);
+        $stmt->bindValue(':latD', $latD);
+        $stmt->bindValue(':longD', $longD);
+        $stmt->execute();
+
+
+        $response = new Response(json_encode(array(
+            'value' => "success"
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function addNewContactAction(Request $request) {
+
+        $contactID = $request->query->get('contactID');
+        $nameD = $request->query->get('nameD');
+        $telephoneD = $request->query->get('telephoneD');
+        $addressD = $request->query->get('addressD');
+        $latD = $request->query->get('latD');
+        $longD = $request->query->get('longD');
+        $categoryD = $request->query->get('categoryD');
+
+        // create prepared statements for USer table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('INSERT INTO contact VALUES (:contactID ,:nameD, :telephoneD,:addressD, :latD, :longD , null , :categoryD);');
+        $stmt->bindValue(':contactID', $contactID);
+        $stmt->bindValue(':nameD', $nameD);
+        $stmt->bindValue(':telephoneD', $telephoneD);
+        $stmt->bindValue(':addressD', $addressD);
+        $stmt->bindValue(':latD', $latD);
+        $stmt->bindValue(':longD', $longD);
+        $stmt->bindValue(':categoryD', $categoryD);
+        $stmt->execute();
+
+
+        $response = new Response(json_encode(array(
+            'value' => "success"
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+
+
+    public function loadPoliceAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "police";');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function loadHospitalAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "hospital";');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function loadBankAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "bank";');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function loadAirLineAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "airLine";');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
 }
