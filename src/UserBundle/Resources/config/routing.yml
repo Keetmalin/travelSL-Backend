@@ -23,7 +23,22 @@ user_register_hotel:
     defaults: { _controller: UserBundle:Authentication:registerHotel }
     methods:  ['GET']
 
+user_register_guide:
+    path:     /registerGuide
+    defaults: { _controller: UserBundle:Authentication:registerGuide }
+    methods:  ['GET']
+
+user_register_photographer:
+    path:     /registerPhotographer
+    defaults: { _controller: UserBundle:Authentication:registerPhotographer }
+    methods:  ['GET']
+
 user_hotel_page:
     path:     /hotelPage
     defaults: { _controller: UserBundle:Authentication:loadHotelPage }
+    methods:  ['GET']
+
+user_photographer_page:
+    path:     /photographerPage
+    defaults: { _controller: UserBundle:Authentication:loadPhotographerPage }
     methods:  ['GET']

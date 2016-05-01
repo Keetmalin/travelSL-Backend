@@ -84,6 +84,28 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 }
                 not_user_register_hotel:
 
+                // user_register_guide
+                if ($pathinfo === '/user/registerGuide') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_register_guide;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::registerGuideAction',  '_route' => 'user_register_guide',);
+                }
+                not_user_register_guide:
+
+                // user_register_photographer
+                if ($pathinfo === '/user/registerPhotographer') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_register_photographer;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::registerPhotographerAction',  '_route' => 'user_register_photographer',);
+                }
+                not_user_register_photographer:
+
             }
 
             // user_hotel_page
@@ -96,6 +118,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadHotelPageAction',  '_route' => 'user_hotel_page',);
             }
             not_user_hotel_page:
+
+            // user_photographer_page
+            if ($pathinfo === '/user/photographerPage') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_photographer_page;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadPhotographerPageAction',  '_route' => 'user_photographer_page',);
+            }
+            not_user_photographer_page:
 
         }
 
