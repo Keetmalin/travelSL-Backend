@@ -93,10 +93,46 @@ user_traveler_data:
     defaults: { _controller: UserBundle:Authentication:travelerData }
     methods:  ['GET']
 
+user_hotel_data:
+    path:     /hotelData
+    defaults: { _controller: UserBundle:Authentication:hotelData }
+    methods:  ['GET']
+
+user_guide_data:
+    path:     /guideData
+    defaults: { _controller: UserBundle:Authentication:guideData }
+    methods:  ['GET']
+
+user_photographer_data:
+    path:     /photographerData
+    defaults: { _controller: UserBundle:Authentication:photographerData }
+    methods:  ['GET']
+
+user_driver_data:
+    path:     /driverData
+    defaults: { _controller: UserBundle:Authentication:driverData }
+    methods:  ['GET']
+
 user_update_traveler:
     path:     /updateTraveler
     defaults: { _controller: UserBundle:Authentication:updateTraveler }
     methods:  ['GET']
+
+user_make_payment:
+    path:     /makePayment
+    defaults: { _controller: UserBundle:Authentication:makePayment}
+    methods:  ['GET']
+
+user_get_messages:
+    path:     /getMessages
+    defaults: { _controller: UserBundle:Authentication:getMessages}
+    methods:  ['GET']
+
+user_get_corporate_account_name:
+    path:     /getCorporateAccountName
+    defaults: { _controller: UserBundle:Authentication:getCorporateAccountName}
+    methods:  ['GET']
+
 
 
 

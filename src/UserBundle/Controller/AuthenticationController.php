@@ -8,9 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationController extends Controller
 {
+    //this method is used to validate log in
     public function loginAction(Request $request) {
-//        $request_data = $request->query->get('userName');      //get
-////        $request_data = $request->request->get('value');  //post
 
         $userName = $request->query->get('userName');
         $password = $request->query->get('password');
@@ -27,12 +26,13 @@ class AuthenticationController extends Controller
 
         $response = new Response(json_encode(array(
             'value' => $stmt->rowCount(),
-            'result' => $result
+            'result' => $result,
+            'result2' => "success"
         )));
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+    //this is used to register an user to the User Table and Log in table
     public function registerAction(Request $request) {
 
         $userNameR = $request->query->get('userNameR');
@@ -65,7 +65,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+    //used to register a corporate account
     public function registerCorporateAction(Request $request) {
 
         $userNameR = $request->query->get('userNameR');
@@ -94,7 +94,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+    //add details to the driver table
     public function registerDriverAction(Request $request) {
 
         $vehicle = $request->query->get('vehicle');
@@ -117,7 +117,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+    //add details to the Hotel tables
     public function registerHotelAction(Request $request) {
 
         $Lat = $request->query->get('lat');
@@ -142,7 +142,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//add details to the guids tables
     public function registerGuideAction(Request $request) {
 
         $account_id = $request->query->get('account_id');
@@ -163,7 +163,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//add details to the photographer tables
     public function registerPhotographerAction(Request $request) {
 
         $account_id = $request->query->get('account_id');
@@ -184,10 +184,12 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
+
+
     
     
 
-
+//load page details of the Hotels
     public function loadHotelPageAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -202,7 +204,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load page details of the phptographer
     public function loadPhotographerPageAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -217,7 +219,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load page details of the Guides
     public function loadGuidePageAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -232,7 +234,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load page details of the Rides
     public function loadRidePageAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -247,7 +249,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load page details of the Destinations
     public function loadDestinationPageAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -263,7 +265,7 @@ class AuthenticationController extends Controller
         return $response;
     }
 
-
+//add new destinations to the database
     public function addNewDestinationAction(Request $request) {
 
         $locationID = $request->query->get('locationID');
@@ -289,7 +291,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//add new contact to the databse
     public function addNewContactAction(Request $request) {
 
         $contactID = $request->query->get('contactID');
@@ -321,7 +323,7 @@ class AuthenticationController extends Controller
     }
 
 
-
+////load police details from the database
     public function loadPoliceAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -336,7 +338,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load hospital details from the database
     public function loadHospitalAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -351,7 +353,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load bank details from the databse
     public function loadBankAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -366,7 +368,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load airline details from the database
     public function loadAirLineAction(Request $request) {
 
         $conn = $this->get('database_connection');
@@ -381,7 +383,7 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
-
+//load the traveller details from the database
     public function travelerDataAction(Request $request) {
 
         $userName = $request->query->get('userName');
@@ -399,6 +401,80 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
+    ////load hotel data from the database
+    public function hotelDataAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id WHERE user.Username = :userName;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//load guide data from the database
+    public function guideDataAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//load photgrpaher data from the database
+    public function photographerDataAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//load driver data from the database
+    public function driverDataAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN ride ON corporate_account.account_id = ride.Corporate_Account_account_id WHERE user.Username = :userName;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    //update traveler details
     public function updateTravelerAction(Request $request) {
 
         $name = $request->query->get('name');
@@ -415,6 +491,70 @@ class AuthenticationController extends Controller
 
         $response = new Response(json_encode(array(
             'value' => "success",
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//creat payment regstrations
+    public function makePaymentAction(Request $request) {
+
+        $account_id = $request->query->get('account_id');
+        $userName = $request->query->get('userName');
+        $amount = $request->query->get('amount');
+        $numberOfDays = $request->query->get('numberOfDays');
+        $date = date("Y/m/d");
+        $time = date("h:i:sa");
+
+        // create prepared statements for USer table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('INSERT INTO payment VALUES (:account_id ,:userName, :date,:time, :amount, :numberOfDays);');
+        $stmt->bindValue(':account_id', $account_id);
+        $stmt->bindValue(':userName', $userName);
+        $stmt->bindValue(':amount', $amount);
+        $stmt->bindValue(':date', $date);
+        $stmt->bindValue(':time', $time);
+        $stmt->bindValue(':numberOfDays', $numberOfDays);
+        $stmt->execute();
+
+
+        $response = new Response(json_encode(array(
+            'value' => "success"
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//get payment messages from the database
+    public function getMessagesAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM payment WHERE User_Username = :userName ;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//get the name of the corporate accounts from the database
+    public function getCorporateAccountNameAction(Request $request) {
+
+        $account_id = $request->query->get('account_id');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM corporate_account WHERE account_id = :account_id ;');
+        $stmt->bindValue(':account_id', $account_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
         )));
         $response->headers->set('Content-type', 'application/json');
         return $response;

@@ -319,6 +319,50 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
             not_user_traveler_data:
 
+            // user_hotel_data
+            if ($pathinfo === '/user/hotelData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_hotel_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::hotelDataAction',  '_route' => 'user_hotel_data',);
+            }
+            not_user_hotel_data:
+
+            // user_guide_data
+            if ($pathinfo === '/user/guideData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_guide_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::guideDataAction',  '_route' => 'user_guide_data',);
+            }
+            not_user_guide_data:
+
+            // user_photographer_data
+            if ($pathinfo === '/user/photographerData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_photographer_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::photographerDataAction',  '_route' => 'user_photographer_data',);
+            }
+            not_user_photographer_data:
+
+            // user_driver_data
+            if ($pathinfo === '/user/driverData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_driver_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::driverDataAction',  '_route' => 'user_driver_data',);
+            }
+            not_user_driver_data:
+
             // user_update_traveler
             if ($pathinfo === '/user/updateTraveler') {
                 if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
@@ -329,6 +373,42 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::updateTravelerAction',  '_route' => 'user_update_traveler',);
             }
             not_user_update_traveler:
+
+            // user_make_payment
+            if ($pathinfo === '/user/makePayment') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_make_payment;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::makePaymentAction',  '_route' => 'user_make_payment',);
+            }
+            not_user_make_payment:
+
+            if (0 === strpos($pathinfo, '/user/get')) {
+                // user_get_messages
+                if ($pathinfo === '/user/getMessages') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_get_messages;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::getMessagesAction',  '_route' => 'user_get_messages',);
+                }
+                not_user_get_messages:
+
+                // user_get_corporate_account_name
+                if ($pathinfo === '/user/getCorporateAccountName') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_get_corporate_account_name;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::getCorporateAccountNameAction',  '_route' => 'user_get_corporate_account_name',);
+                }
+                not_user_get_corporate_account_name:
+
+            }
 
         }
 
