@@ -39,20 +39,23 @@ class AuthenticationController extends Controller
         $nameR = $request->query->get('nameR');
         $emailR = $request->query->get('emailR');
         $passwordR = $request->query->get('passwordR');
+        $category = $request->query->get('category');
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO user (Username,Email, Name ) VALUES (:userNameR ,:emailR, :nameR);');
+        $stmt = $conn->prepare('INSERT INTO user (Username,Email, Name) VALUES (:userNameR ,:emailR, :nameR);');
         $stmt->bindValue(':userNameR', $userNameR);
         $stmt->bindValue(':nameR', $nameR);
         $stmt->bindValue(':emailR', $emailR);
+
         $stmt->execute();
 
         //create prepared statements for login table
-        $stmt = $conn->prepare('INSERT INTO login (User_Username,Password) VALUES (:userNameR ,:passwordR);');
+        $stmt = $conn->prepare('INSERT INTO login (User_Username,Password , category) VALUES (:userNameR ,:passwordR , :category);');
         //$hashPassword = md5($passwordR);
         $stmt->bindValue(':userNameR', $userNameR);
         $stmt->bindValue(':passwordR', $passwordR);
+        $stmt->bindValue(':category', $category);
         $stmt->execute();
 
 
@@ -374,6 +377,44 @@ class AuthenticationController extends Controller
         $response = new Response(json_encode(array(
             'value' => "success",
             'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function travelerDataAction(Request $request) {
+
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM user WHERE Username = :userName ;');
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+    public function updateTravelerAction(Request $request) {
+
+        $name = $request->query->get('name');
+        $email = $request->query->get('email');
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('UPDATE user SET Email = :email , Name = :name WHERE Username=:userName;');
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
         )));
         $response->headers->set('Content-type', 'application/json');
         return $response;

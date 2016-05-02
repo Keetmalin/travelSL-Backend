@@ -15,8 +15,8 @@ class __TwigTemplate_ac4f9980f0bbf33f9ffb76d03ee22ddcc91bb09f33b308f57a995b656f0
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5e72fec88ea85cd6097a43e592f769e358dcc73ab683615fdf3a33a86de8a2e4 = $this->env->getExtension("native_profiler");
-        $__internal_5e72fec88ea85cd6097a43e592f769e358dcc73ab683615fdf3a33a86de8a2e4->enter($__internal_5e72fec88ea85cd6097a43e592f769e358dcc73ab683615fdf3a33a86de8a2e4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/checkbox_widget.html.php"));
+        $__internal_0b37298991584fd6fc33386aacc7efef95c08e18b6f595530b8543fe0afe4ba2 = $this->env->getExtension("native_profiler");
+        $__internal_0b37298991584fd6fc33386aacc7efef95c08e18b6f595530b8543fe0afe4ba2->enter($__internal_0b37298991584fd6fc33386aacc7efef95c08e18b6f595530b8543fe0afe4ba2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Framework/Form/checkbox_widget.html.php"));
 
         // line 1
         echo "<input type=\"checkbox\"
@@ -26,7 +26,7 @@ class __TwigTemplate_ac4f9980f0bbf33f9ffb76d03ee22ddcc91bb09f33b308f57a995b656f0
 />
 ";
         
-        $__internal_5e72fec88ea85cd6097a43e592f769e358dcc73ab683615fdf3a33a86de8a2e4->leave($__internal_5e72fec88ea85cd6097a43e592f769e358dcc73ab683615fdf3a33a86de8a2e4_prof);
+        $__internal_0b37298991584fd6fc33386aacc7efef95c08e18b6f595530b8543fe0afe4ba2->leave($__internal_0b37298991584fd6fc33386aacc7efef95c08e18b6f595530b8543fe0afe4ba2_prof);
 
     }
 

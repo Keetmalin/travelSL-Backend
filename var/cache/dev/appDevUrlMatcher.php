@@ -308,6 +308,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            // user_traveler_data
+            if ($pathinfo === '/user/travelerData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_traveler_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::travelerDataAction',  '_route' => 'user_traveler_data',);
+            }
+            not_user_traveler_data:
+
+            // user_update_traveler
+            if ($pathinfo === '/user/updateTraveler') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_update_traveler;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::updateTravelerAction',  '_route' => 'user_update_traveler',);
+            }
+            not_user_update_traveler:
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

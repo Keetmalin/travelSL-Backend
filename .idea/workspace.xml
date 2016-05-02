@@ -25,35 +25,38 @@
       <file leaf-file-name="AuthenticationController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/UserBundle/Controller/AuthenticationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="362" column="67" selection-start-line="362" selection-start-column="67" selection-end-line="362" selection-end-column="67" />
+            <state relative-caret-position="476">
+              <caret line="417" column="8" selection-start-line="417" selection-start-column="8" selection-end-line="417" selection-end-column="8" />
               <folding>
                 <element signature="e#41#98#0#PHP" expanded="true" />
-                <marker date="1462115812832" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
-                <marker date="1462115812832" expanded="true" signature="1582:1659" placeholder="SELECT test new_table" />
-                <marker date="1462115812832" expanded="true" signature="1918:1992" placeholder="INSERT INTO login... " />
-                <marker date="1462115812832" expanded="true" signature="2924:3090" placeholder="INSERT INTO corporate_account... " />
-                <marker date="1462115812832" expanded="true" signature="2924:3105" placeholder="INSERT INTO user... " />
-                <marker date="1462115812832" expanded="true" signature="4034:4161" placeholder="INSERT INTO ride... " />
-                <marker date="1462115812832" expanded="true" signature="4923:4940" placeholder="INSERT INTO hotel... " />
-                <marker date="1462115812832" expanded="true" signature="4923:4995" placeholder="INSERT INTO hotel... " />
-                <marker date="1462115812832" expanded="true" signature="5655:5712" placeholder="INSERT INTO guide... " />
-                <marker date="1462115812832" expanded="true" signature="6305:6369" placeholder="INSERT INTO photographer... " />
-                <marker date="1462115812832" expanded="false" signature="6756:7310" placeholder="..." />
-                <marker date="1462115812832" expanded="true" signature="6841:7011" placeholder="SELECT * FRO... corporate_account" />
-                <marker date="1462115812832" expanded="true" signature="7464:7648" placeholder="SELECT * FRO... corporate_account" />
-                <marker date="1462115812832" expanded="true" signature="8094:8264" placeholder="SELECT * FRO... corporate_account" />
-                <marker date="1462115812832" expanded="true" signature="8709:8877" placeholder="SELECT * FRO... corporate_account" />
-                <marker date="1462115812832" expanded="true" signature="9329:9351" placeholder="SELECT * FRO... location" />
-                <marker date="1462115812832" expanded="true" signature="10118:10203" placeholder="INSERT INTO location... " />
-                <marker date="1462115812832" expanded="true" signature="11242:11347" placeholder="INSERT INTO contact... " />
-                <marker date="1462115812832" expanded="true" signature="12061:12093" placeholder="SELECT * FRO... contact" />
-                <marker date="1462115812832" expanded="true" signature="12061:12097" placeholder="SELECT * FRO... contact" />
-                <marker date="1462115812832" expanded="true" signature="12061:12099" placeholder="SELECT * FRO... contact" />
-                <marker date="1462115812832" expanded="true" signature="12061:12108" placeholder="SELECT * FRO... contact" />
-                <marker date="1462115812832" expanded="true" signature="12553:12602" placeholder="SELECT * FRO... location" />
-                <marker date="1462115812832" expanded="true" signature="13043:13088" placeholder="SELECT * FRO... location" />
-                <marker date="1462115812832" expanded="true" signature="13532:13580" placeholder="SELECT * FRO... location" />
+                <marker date="1462155162219" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
+                <marker date="1462155162219" expanded="true" signature="1636:1712" placeholder="SELECT test new_table" />
+                <marker date="1462155162219" expanded="true" signature="1972:2069" placeholder="INSERT INTO login... " />
+                <marker date="1462155162219" expanded="true" signature="3051:3217" placeholder="INSERT INTO corporate_account... " />
+                <marker date="1462155162219" expanded="true" signature="3051:3232" placeholder="INSERT INTO user... " />
+                <marker date="1462155162219" expanded="true" signature="4161:4288" placeholder="INSERT INTO ride... " />
+                <marker date="1462155162219" expanded="true" signature="5050:5067" placeholder="INSERT INTO hotel... " />
+                <marker date="1462155162219" expanded="true" signature="5050:5122" placeholder="INSERT INTO hotel... " />
+                <marker date="1462155162219" expanded="true" signature="5782:5839" placeholder="INSERT INTO guide... " />
+                <marker date="1462155162219" expanded="true" signature="6432:6496" placeholder="INSERT INTO photographer... " />
+                <marker date="1462155162219" expanded="false" signature="6883:7437" placeholder="..." />
+                <marker date="1462155162219" expanded="true" signature="6968:7138" placeholder="SELECT * FRO... corporate_account" />
+                <marker date="1462155162219" expanded="true" signature="7591:7775" placeholder="SELECT * FRO... corporate_account" />
+                <marker date="1462155162219" expanded="true" signature="8221:8391" placeholder="SELECT * FRO... corporate_account" />
+                <marker date="1462155162219" expanded="true" signature="8836:9004" placeholder="SELECT * FRO... corporate_account" />
+                <marker date="1462155162219" expanded="true" signature="9456:9478" placeholder="SELECT * FRO... location" />
+                <marker date="1462155162219" expanded="true" signature="10245:10330" placeholder="INSERT INTO location... " />
+                <marker date="1462155162219" expanded="true" signature="11369:11474" placeholder="INSERT INTO contact... " />
+                <marker date="1462155162219" expanded="true" signature="12188:12220" placeholder="SELECT * FRO... contact" />
+                <marker date="1462155162219" expanded="true" signature="12188:12224" placeholder="SELECT * FRO... contact" />
+                <marker date="1462155162219" expanded="true" signature="12188:12226" placeholder="SELECT * FRO... contact" />
+                <marker date="1462155162219" expanded="true" signature="12188:12235" placeholder="SELECT * FRO... contact" />
+                <marker date="1462155162219" expanded="true" signature="12680:12729" placeholder="SELECT * FRO... location" />
+                <marker date="1462155162219" expanded="true" signature="13170:13215" placeholder="SELECT * FRO... location" />
+                <marker date="1462155162219" expanded="true" signature="13659:13707" placeholder="SELECT * FRO... location" />
+                <marker date="1462155162219" expanded="true" signature="14207:14252" placeholder="SELECT * FRO... user" />
+                <marker date="1462155162219" expanded="true" signature="14898:14968" placeholder="UPDATE user " />
+                <marker date="1462155162219" expanded="true" signature="14904:14968" placeholder="INSERT INTO user... " />
               </folding>
             </state>
           </provider>
@@ -62,8 +65,8 @@
       <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserBundle/Resources/config/routing.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+            <state relative-caret-position="437">
+              <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -346,12 +349,12 @@
       <option name="presentableId" value="Default" />
       <updated>1461898847013</updated>
       <workItem from="1461898848557" duration="751000" />
-      <workItem from="1461899616356" duration="49754000" />
+      <workItem from="1461899616356" duration="54943000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50505000" />
+    <option name="totallyTimeSpent" value="55694000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
@@ -400,31 +403,34 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#41#98#0#PHP" expanded="true" />
-            <marker date="1462115812832" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
-            <marker date="1462115812832" expanded="true" signature="1582:1659" placeholder="SELECT test new_table" />
-            <marker date="1462115812832" expanded="true" signature="1918:1992" placeholder="INSERT INTO login... " />
-            <marker date="1462115812832" expanded="true" signature="2924:3090" placeholder="INSERT INTO corporate_account... " />
-            <marker date="1462115812832" expanded="true" signature="2924:3105" placeholder="INSERT INTO user... " />
-            <marker date="1462115812832" expanded="true" signature="4034:4161" placeholder="INSERT INTO ride... " />
-            <marker date="1462115812832" expanded="true" signature="4923:4940" placeholder="INSERT INTO hotel... " />
-            <marker date="1462115812832" expanded="true" signature="4923:4995" placeholder="INSERT INTO hotel... " />
-            <marker date="1462115812832" expanded="true" signature="5655:5712" placeholder="INSERT INTO guide... " />
-            <marker date="1462115812832" expanded="true" signature="6305:6369" placeholder="INSERT INTO photographer... " />
-            <marker date="1462115812832" expanded="false" signature="6756:7310" placeholder="..." />
-            <marker date="1462115812832" expanded="true" signature="6841:7011" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="7464:7648" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="8094:8264" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="8709:8877" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="9329:9351" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="10118:10203" placeholder="INSERT INTO location... " />
-            <marker date="1462115812832" expanded="true" signature="11242:11347" placeholder="INSERT INTO contact... " />
-            <marker date="1462115812832" expanded="true" signature="12061:12093" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12097" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12099" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12108" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12553:12602" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="13043:13088" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="13532:13580" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
+            <marker date="1462155162219" expanded="true" signature="1636:1712" placeholder="SELECT test new_table" />
+            <marker date="1462155162219" expanded="true" signature="1972:2069" placeholder="INSERT INTO login... " />
+            <marker date="1462155162219" expanded="true" signature="3051:3217" placeholder="INSERT INTO corporate_account... " />
+            <marker date="1462155162219" expanded="true" signature="3051:3232" placeholder="INSERT INTO user... " />
+            <marker date="1462155162219" expanded="true" signature="4161:4288" placeholder="INSERT INTO ride... " />
+            <marker date="1462155162219" expanded="true" signature="5050:5067" placeholder="INSERT INTO hotel... " />
+            <marker date="1462155162219" expanded="true" signature="5050:5122" placeholder="INSERT INTO hotel... " />
+            <marker date="1462155162219" expanded="true" signature="5782:5839" placeholder="INSERT INTO guide... " />
+            <marker date="1462155162219" expanded="true" signature="6432:6496" placeholder="INSERT INTO photographer... " />
+            <marker date="1462155162219" expanded="false" signature="6883:7437" placeholder="..." />
+            <marker date="1462155162219" expanded="true" signature="6968:7138" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="7591:7775" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="8221:8391" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="8836:9004" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="9456:9478" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="10245:10330" placeholder="INSERT INTO location... " />
+            <marker date="1462155162219" expanded="true" signature="11369:11474" placeholder="INSERT INTO contact... " />
+            <marker date="1462155162219" expanded="true" signature="12188:12220" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12224" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12226" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12235" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12680:12729" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="13170:13215" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="13659:13707" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="14207:14252" placeholder="SELECT * FRO... user" />
+            <marker date="1462155162219" expanded="true" signature="14898:14968" placeholder="UPDATE user " />
+            <marker date="1462155162219" expanded="true" signature="14904:14968" placeholder="INSERT INTO user... " />
           </folding>
         </state>
       </provider>
@@ -540,14 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UserBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/HttpFoundation/ParameterBag.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -556,37 +554,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/UserBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="95" column="21" selection-start-line="95" selection-start-column="21" selection-end-line="95" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/UserBundle/Controller/AuthenticationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="362" column="67" selection-start-line="362" selection-start-column="67" selection-end-line="362" selection-end-column="67" />
+        <state relative-caret-position="476">
+          <caret line="417" column="8" selection-start-line="417" selection-start-column="8" selection-end-line="417" selection-end-column="8" />
           <folding>
             <element signature="e#41#98#0#PHP" expanded="true" />
-            <marker date="1462115812832" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
-            <marker date="1462115812832" expanded="true" signature="1582:1659" placeholder="SELECT test new_table" />
-            <marker date="1462115812832" expanded="true" signature="1918:1992" placeholder="INSERT INTO login... " />
-            <marker date="1462115812832" expanded="true" signature="2924:3090" placeholder="INSERT INTO corporate_account... " />
-            <marker date="1462115812832" expanded="true" signature="2924:3105" placeholder="INSERT INTO user... " />
-            <marker date="1462115812832" expanded="true" signature="4034:4161" placeholder="INSERT INTO ride... " />
-            <marker date="1462115812832" expanded="true" signature="4923:4940" placeholder="INSERT INTO hotel... " />
-            <marker date="1462115812832" expanded="true" signature="4923:4995" placeholder="INSERT INTO hotel... " />
-            <marker date="1462115812832" expanded="true" signature="5655:5712" placeholder="INSERT INTO guide... " />
-            <marker date="1462115812832" expanded="true" signature="6305:6369" placeholder="INSERT INTO photographer... " />
-            <marker date="1462115812832" expanded="false" signature="6756:7310" placeholder="..." />
-            <marker date="1462115812832" expanded="true" signature="6841:7011" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="7464:7648" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="8094:8264" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="8709:8877" placeholder="SELECT * FRO... corporate_account" />
-            <marker date="1462115812832" expanded="true" signature="9329:9351" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="10118:10203" placeholder="INSERT INTO location... " />
-            <marker date="1462115812832" expanded="true" signature="11242:11347" placeholder="INSERT INTO contact... " />
-            <marker date="1462115812832" expanded="true" signature="12061:12093" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12097" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12099" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12061:12108" placeholder="SELECT * FRO... contact" />
-            <marker date="1462115812832" expanded="true" signature="12553:12602" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="13043:13088" placeholder="SELECT * FRO... location" />
-            <marker date="1462115812832" expanded="true" signature="13532:13580" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="650:726" placeholder="SELECT * FRO... login" />
+            <marker date="1462155162219" expanded="true" signature="1636:1712" placeholder="SELECT test new_table" />
+            <marker date="1462155162219" expanded="true" signature="1972:2069" placeholder="INSERT INTO login... " />
+            <marker date="1462155162219" expanded="true" signature="3051:3217" placeholder="INSERT INTO corporate_account... " />
+            <marker date="1462155162219" expanded="true" signature="3051:3232" placeholder="INSERT INTO user... " />
+            <marker date="1462155162219" expanded="true" signature="4161:4288" placeholder="INSERT INTO ride... " />
+            <marker date="1462155162219" expanded="true" signature="5050:5067" placeholder="INSERT INTO hotel... " />
+            <marker date="1462155162219" expanded="true" signature="5050:5122" placeholder="INSERT INTO hotel... " />
+            <marker date="1462155162219" expanded="true" signature="5782:5839" placeholder="INSERT INTO guide... " />
+            <marker date="1462155162219" expanded="true" signature="6432:6496" placeholder="INSERT INTO photographer... " />
+            <marker date="1462155162219" expanded="false" signature="6883:7437" placeholder="..." />
+            <marker date="1462155162219" expanded="true" signature="6968:7138" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="7591:7775" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="8221:8391" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="8836:9004" placeholder="SELECT * FRO... corporate_account" />
+            <marker date="1462155162219" expanded="true" signature="9456:9478" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="10245:10330" placeholder="INSERT INTO location... " />
+            <marker date="1462155162219" expanded="true" signature="11369:11474" placeholder="INSERT INTO contact... " />
+            <marker date="1462155162219" expanded="true" signature="12188:12220" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12224" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12226" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12188:12235" placeholder="SELECT * FRO... contact" />
+            <marker date="1462155162219" expanded="true" signature="12680:12729" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="13170:13215" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="13659:13707" placeholder="SELECT * FRO... location" />
+            <marker date="1462155162219" expanded="true" signature="14207:14252" placeholder="SELECT * FRO... user" />
+            <marker date="1462155162219" expanded="true" signature="14898:14968" placeholder="UPDATE user " />
+            <marker date="1462155162219" expanded="true" signature="14904:14968" placeholder="INSERT INTO user... " />
           </folding>
         </state>
       </provider>

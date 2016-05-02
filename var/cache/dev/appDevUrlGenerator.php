@@ -53,6 +53,8 @@ class appDevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'user_load_hospital' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadHospitalAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadHospital',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_load_Bank' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadBankAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadBank',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_load_air_line' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadAirLineAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadAirLine',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'user_traveler_data' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::travelerDataAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/travelerData',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'user_update_traveler' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::updateTravelerAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/updateTraveler',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
         }
     }

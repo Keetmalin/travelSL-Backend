@@ -87,3 +87,23 @@ user_load_air_line:
     path:     /loadAirLine
     defaults: { _controller: UserBundle:Authentication:loadAirLine }
     methods:  ['GET']
+
+user_traveler_data:
+    path:     /travelerData
+    defaults: { _controller: UserBundle:Authentication:travelerData }
+    methods:  ['GET']
+
+user_update_traveler:
+    path:     /updateTraveler
+    defaults: { _controller: UserBundle:Authentication:updateTraveler }
+    methods:  ['GET']
+
+
+
+
+
+
+
+
+
+
