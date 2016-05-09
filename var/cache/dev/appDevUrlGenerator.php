@@ -62,6 +62,7 @@ class appDevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'user_make_payment' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::makePaymentAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/makePayment',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_get_messages' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::getMessagesAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/getMessages',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_get_corporate_account_name' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::getCorporateAccountNameAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/getCorporateAccountName',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'user_load_map_hotels' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadMapHotels',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
         }
     }

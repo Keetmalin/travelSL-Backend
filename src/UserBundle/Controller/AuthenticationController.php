@@ -35,6 +35,9 @@ class AuthenticationController extends Controller
     //this is used to register an user to the User Table and Log in table
     public function registerAction(Request $request) {
 
+        $payment = 999;
+        $recepient = "keer";
+        $date = 12;
         $userNameR = $request->query->get('userNameR');
         $nameR = $request->query->get('nameR');
         $emailR = $request->query->get('emailR');
@@ -52,12 +55,35 @@ class AuthenticationController extends Controller
 
         //create prepared statements for login table
         $stmt = $conn->prepare('INSERT INTO login (User_Username,Password , category) VALUES (:userNameR ,:passwordR , :category);');
-        //$hashPassword = md5($passwordR);
+        $hashPassword = md5($passwordR);
         $stmt->bindValue(':userNameR', $userNameR);
-        $stmt->bindValue(':passwordR', $passwordR);
+        $stmt->bindValue(':passwordR', $hashPassword);
         $stmt->bindValue(':category', $category);
         $stmt->execute();
 
+//        //send email to user registering a payment
+//        $to      = $emailR;
+//        $subject = 'Payment | Verification | Travel Sri Lanka';
+//        $message = '
+// 
+//Thanks for making a payment through Travel Sri Lanka!
+//Your payment has been recorded, following are the relevant details.
+// 
+//------------------------
+//Username: '.$nameR.'
+//Amount: '.$payment.'
+//Recepient: '.$recepient.'
+//Date: '.$date.'
+//------------------------
+// 
+//Please click this link to activate your account:
+//http://localhost/travelSL/web/user/verify?email='.$emailR.'&Recepient='.$recepient.'
+// 
+//';
+//
+//        $headers = 'From:noreply@travelSriLanka.com' . "\r\n"; // Set from headers
+//        mail($to, $subject, $message, $headers); // Send our email
+//
 
         $response = new Response(json_encode(array(
             'value' => "success"
@@ -549,6 +575,21 @@ class AuthenticationController extends Controller
         $conn = $this->get('database_connection');
         $stmt = $conn->prepare('SELECT * FROM corporate_account WHERE account_id = :account_id ;');
         $stmt->bindValue(':account_id', $account_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+//get the list of hotels with their lats and longs
+    public function loadMapHotelsAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM corporate_account LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id ;');
         $stmt->execute();
         $result = $stmt->fetchAll();
 

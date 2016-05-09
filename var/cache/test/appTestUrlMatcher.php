@@ -410,6 +410,17 @@ class appTestUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
             }
 
+            // user_load_map_hotels
+            if ($pathinfo === '/user/loadMapHotels') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_load_map_hotels;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  '_route' => 'user_load_map_hotels',);
+            }
+            not_user_load_map_hotels:
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

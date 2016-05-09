@@ -133,6 +133,11 @@ user_get_corporate_account_name:
     defaults: { _controller: UserBundle:Authentication:getCorporateAccountName}
     methods:  ['GET']
 
+user_load_map_hotels:
+    path:     /loadMapHotels
+    defaults: { _controller: UserBundle:Authentication:loadMapHotels}
+    methods:  ['GET']
+
 
 
 
