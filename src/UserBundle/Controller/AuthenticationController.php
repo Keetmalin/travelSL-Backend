@@ -601,4 +601,33 @@ class AuthenticationController extends Controller
         return $response;
     }
 
+    public function loadContactPageAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM contact;');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+    public function loginDetailsAction(Request $request) {
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT * FROM login;');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
 }

@@ -257,6 +257,39 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             }
             not_user_hotel_data:
 
+            // user_guide_data
+            if ($pathinfo === '/user/guideData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_guide_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::guideDataAction',  '_route' => 'user_guide_data',);
+            }
+            not_user_guide_data:
+
+            // user_photographer_data
+            if ($pathinfo === '/user/photographerData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_photographer_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::photographerDataAction',  '_route' => 'user_photographer_data',);
+            }
+            not_user_photographer_data:
+
+            // user_driver_data
+            if ($pathinfo === '/user/driverData') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_driver_data;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::driverDataAction',  '_route' => 'user_driver_data',);
+            }
+            not_user_driver_data:
+
             // user_update_traveler
             if ($pathinfo === '/user/updateTraveler') {
                 if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
@@ -267,6 +300,81 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::updateTravelerAction',  '_route' => 'user_update_traveler',);
             }
             not_user_update_traveler:
+
+            // user_make_payment
+            if ($pathinfo === '/user/makePayment') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_make_payment;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::makePaymentAction',  '_route' => 'user_make_payment',);
+            }
+            not_user_make_payment:
+
+            if (0 === strpos($pathinfo, '/user/get')) {
+                // user_get_messages
+                if ($pathinfo === '/user/getMessages') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_get_messages;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::getMessagesAction',  '_route' => 'user_get_messages',);
+                }
+                not_user_get_messages:
+
+                // user_get_corporate_account_name
+                if ($pathinfo === '/user/getCorporateAccountName') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_get_corporate_account_name;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::getCorporateAccountNameAction',  '_route' => 'user_get_corporate_account_name',);
+                }
+                not_user_get_corporate_account_name:
+
+            }
+
+            if (0 === strpos($pathinfo, '/user/lo')) {
+                if (0 === strpos($pathinfo, '/user/load')) {
+                    // user_load_map_hotels
+                    if ($pathinfo === '/user/loadMapHotels') {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_user_load_map_hotels;
+                        }
+
+                        return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  '_route' => 'user_load_map_hotels',);
+                    }
+                    not_user_load_map_hotels:
+
+                    // user_load_contact_page
+                    if ($pathinfo === '/user/loadContactPage') {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_user_load_contact_page;
+                        }
+
+                        return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadContactPageAction',  '_route' => 'user_load_contact_page',);
+                    }
+                    not_user_load_contact_page:
+
+                }
+
+                // user_login_details
+                if ($pathinfo === '/user/loginDetails') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_login_details;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loginDetailsAction',  '_route' => 'user_login_details',);
+                }
+                not_user_login_details:
+
+            }
 
         }
 

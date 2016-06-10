@@ -410,16 +410,44 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
-            // user_load_map_hotels
-            if ($pathinfo === '/user/loadMapHotels') {
-                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
-                    $allow = array_merge($allow, array('GET', 'HEAD'));
-                    goto not_user_load_map_hotels;
+            if (0 === strpos($pathinfo, '/user/lo')) {
+                if (0 === strpos($pathinfo, '/user/load')) {
+                    // user_load_map_hotels
+                    if ($pathinfo === '/user/loadMapHotels') {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_user_load_map_hotels;
+                        }
+
+                        return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  '_route' => 'user_load_map_hotels',);
+                    }
+                    not_user_load_map_hotels:
+
+                    // user_load_contact_page
+                    if ($pathinfo === '/user/loadContactPage') {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_user_load_contact_page;
+                        }
+
+                        return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadContactPageAction',  '_route' => 'user_load_contact_page',);
+                    }
+                    not_user_load_contact_page:
+
                 }
 
-                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  '_route' => 'user_load_map_hotels',);
+                // user_login_details
+                if ($pathinfo === '/user/loginDetails') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_user_login_details;
+                    }
+
+                    return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::loginDetailsAction',  '_route' => 'user_login_details',);
+                }
+                not_user_login_details:
+
             }
-            not_user_load_map_hotels:
 
         }
 

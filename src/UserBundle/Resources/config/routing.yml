@@ -138,6 +138,16 @@ user_load_map_hotels:
     defaults: { _controller: UserBundle:Authentication:loadMapHotels}
     methods:  ['GET']
 
+user_load_contact_page:
+    path:     /loadContactPage
+    defaults: { _controller: UserBundle:Authentication:loadContactPage }
+    methods:  ['GET']
+
+user_login_details:
+    path:     /loginDetails
+    defaults: { _controller: UserBundle:Authentication:loginDetails }
+    methods:  ['GET']
+
 
 
 
