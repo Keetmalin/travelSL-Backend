@@ -768,6 +768,27 @@ class AuthenticationController extends Controller
         return $response;
     }
 
+    public function updatePasswordAction(Request $request) {
+
+        $callback = $request->get('callback');
+
+        $password = $request->query->get('password');
+        $userName = $request->query->get('userName');
+
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('UPDATE login SET password = :password WHERE Username=:userName;');
+        $stmt->bindValue(':password', $password);
+        $stmt->bindValue(':userName', $userName);
+        $stmt->execute();
+
+        $response_content = array(
+            'value' => "success"
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
+        return $response;
+    }
 
 
 
