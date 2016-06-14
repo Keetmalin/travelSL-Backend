@@ -3,6 +3,7 @@
 namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,25 +12,30 @@ class AuthenticationController extends Controller
     //this method is used to validate log in
     public function loginAction(Request $request) {
 
+        $callback = $request->get('callback');
+
         $userName = $request->query->get('userName');
         $password = $request->query->get('password');
-
 
         // process
         $conn = $this->get('database_connection');
         $stmt = $conn->prepare('SELECT * FROM login WHERE User_Username = :userName AND Password = :password ;');
-        //$hashPassword = md5($password);
+        $hashPassword = md5($password);
         $stmt->bindValue(':userName', $userName);
-        $stmt->bindValue(':password', $password);
+        $stmt->bindValue(':password', $hashPassword);
         $stmt->execute();
         $result = $stmt->fetchAll();
 
-        $response = new Response(json_encode(array(
-            'value' => $stmt->rowCount(),
-            'result' => $result,
-            'result2' => "success"
-        )));
-        $response->headers->set('Content-type', 'application/json');
+        $this->get('session')->set('username', $userName);
+
+       $response_content = array(
+           'value' => $stmt->rowCount(),
+           'result' => $result,
+           'result2' => "success"
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
         return $response;
     }
     //this is used to register an user to the User Table and Log in table
@@ -217,17 +223,19 @@ class AuthenticationController extends Controller
 
 //load page details of the Hotels
     public function loadHotelPageAction(Request $request) {
-
+        $callback = $request->get('callback');
         $conn = $this->get('database_connection');
         $stmt = $conn->prepare('SELECT * FROM corporate_account,user,hotel WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = hotel.Corporate_Account_account_id);');
         $stmt->execute();
         $result = $stmt->fetchAll();
 
-        $response = new Response(json_encode(array(
+        $response_content = array(
             'value' => "success",
             'result' => $result
-        )));
-        $response->headers->set('Content-type', 'application/json');
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
         return $response;
     }
 //load page details of the phptographer
@@ -629,5 +637,54 @@ class AuthenticationController extends Controller
         $response->headers->set('Content-type', 'application/json');
         return $response;
     }
+
+    public function addReviewAction(Request $request) {
+
+        $account_id = $request->query->get('account_id');
+        $score = $request->query->get('score');
+
+
+        // create prepared statements for USer table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('INSERT INTO comment (Corporate_Account_account_id , Review) VALUES (:account_id ,:score);');
+        $stmt->bindValue(':account_id', $account_id);
+        $stmt->bindValue(':score', $score);
+
+        $stmt->execute();
+
+
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+    public function getReviewAction(Request $request) {
+
+        $account_id = $request->query->get('account_id');
+ 
+        // create prepared statements for USer table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('SELECT review FROM comment WHERE Corporate_Account_account_id = :account_id;');
+        $stmt->bindValue(':account_id', $account_id);
+
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $response = new Response(json_encode(array(
+            'value' => "success",
+            'result' => $result,
+            'count' => $stmt->rowCount()
+        )));
+        $response->headers->set('Content-type', 'application/json');
+        return $response;
+    }
+
+
+
+
 
 }

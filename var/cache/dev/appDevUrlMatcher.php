@@ -449,6 +449,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            // user_add_review
+            if ($pathinfo === '/user/addReview') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_add_review;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::addReviewAction',  '_route' => 'user_add_review',);
+            }
+            not_user_add_review:
+
+            // user_get_review
+            if ($pathinfo === '/user/getReview') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_user_get_review;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\AuthenticationController::getReviewAction',  '_route' => 'user_get_review',);
+            }
+            not_user_get_review:
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

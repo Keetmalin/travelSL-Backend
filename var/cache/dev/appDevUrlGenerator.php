@@ -65,6 +65,8 @@ class appDevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'user_load_map_hotels' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadMapHotelsAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadMapHotels',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_load_contact_page' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loadContactPageAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loadContactPage',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'user_login_details' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::loginDetailsAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/loginDetails',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'user_add_review' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::addReviewAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/addReview',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'user_get_review' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'UserBundle\\Controller\\AuthenticationController::getReviewAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/getReview',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
         }
     }

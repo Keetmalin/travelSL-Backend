@@ -148,6 +148,16 @@ user_login_details:
     defaults: { _controller: UserBundle:Authentication:loginDetails }
     methods:  ['GET']
 
+user_add_review:
+    path:     /addReview
+    defaults: { _controller: UserBundle:Authentication:addReview }
+    methods:  ['GET']
+
+user_get_review:
+    path:     /getReview
+    defaults: { _controller: UserBundle:Authentication:getReview }
+    methods:  ['GET']
+
 
 
 
