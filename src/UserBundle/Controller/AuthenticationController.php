@@ -41,9 +41,8 @@ class AuthenticationController extends Controller
     //this is used to register an user to the User Table and Log in table
     public function registerAction(Request $request) {
 
-        $payment = 999;
-        $recepient = "keer";
-        $date = 12;
+        $callback = $request->get('callback');
+
         $userNameR = $request->query->get('userNameR');
         $nameR = $request->query->get('nameR');
         $emailR = $request->query->get('emailR');
@@ -67,35 +66,15 @@ class AuthenticationController extends Controller
         $stmt->bindValue(':category', $category);
         $stmt->execute();
 
-//        //send email to user registering a payment
-//        $to      = $emailR;
-//        $subject = 'Payment | Verification | Travel Sri Lanka';
-//        $message = '
-// 
-//Thanks for making a payment through Travel Sri Lanka!
-//Your payment has been recorded, following are the relevant details.
-// 
-//------------------------
-//Username: '.$nameR.'
-//Amount: '.$payment.'
-//Recepient: '.$recepient.'
-//Date: '.$date.'
-//------------------------
-// 
-//Please click this link to activate your account:
-//http://localhost/travelSL/web/user/verify?email='.$emailR.'&Recepient='.$recepient.'
-// 
-//';
-//
-//        $headers = 'From:noreply@travelSriLanka.com' . "\r\n"; // Set from headers
-//        mail($to, $subject, $message, $headers); // Send our email
-//
-
-        $response = new Response(json_encode(array(
+        $response_content = array(
             'value' => "success"
-        )));
-        $response->headers->set('Content-type', 'application/json');
+        );
+        //comment
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
         return $response;
+
     }
     //used to register a corporate account
     public function registerCorporateAction(Request $request) {
