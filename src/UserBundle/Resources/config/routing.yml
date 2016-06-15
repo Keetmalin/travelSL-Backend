@@ -163,6 +163,21 @@ user_update_password:
     defaults: { _controller: UserBundle:Authentication:updatePassword }
     methods:  ['GET']
 
+user_update_corporate:
+    path:     /updateCorporate
+    defaults: { _controller: UserBundle:Authentication:updateCorporate }
+    methods:  ['GET']
+
+user_update_driver:
+    path:     /updateDriver
+    defaults: { _controller: UserBundle:Authentication:updateDriver }
+    methods:  ['GET']
+
+user_update_hotel:
+    path:     /updateHotel
+    defaults: { _controller: UserBundle:Authentication:updateHotel }
+    methods:  ['GET']
+
 
 
 

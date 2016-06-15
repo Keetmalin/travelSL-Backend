@@ -799,9 +799,87 @@ class AuthenticationController extends Controller
         return $response;
     }
 
+    public function updateCorporateAction(Request $request) {
+
+        $callback = $request->get('callback');
+
+        $userNameR = $request->query->get('userNameR');
+        $telephone = $request->query->get('telephone');
+        $Address = $request->query->get('Address');
+        $District = $request->query->get('District');
+         $description = $request->query->get('description');
 
 
+        // create prepared statements for corporate account table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('UPDATE corporate_account SET User_Username = :userNameR, Telephone = :telephone , Address = :Address ,District = :District , description = :description WHERE User_Username = :userNameR;');
+        $stmt->bindValue(':userNameR', $userNameR);
+        $stmt->bindValue(':telephone', $telephone);
+        $stmt->bindValue(':Address', $Address);
+        $stmt->bindValue(':District', $District);
+        $stmt->bindValue(':description', $description);
+        $stmt->execute();
 
 
+        $response_content = array(
+            'value' => $stmt->rowCount()
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
+        return $response;
+    }
+    //add details to the driver table
+    public function updateDriverAction(Request $request) {
+
+        $callback = $request->get('callback');
+
+        $vehicle = $request->query->get('vehicle');
+        $capacity = $request->query->get('capacity');
+        $account_id = $request->query->get('account_id');
+
+        // create prepared statements for corporate account table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('UPDATE ride SET vehicle =  :vehicle, capacity = :capacity WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
+        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+        $stmt->bindValue(':vehicle', $vehicle);
+        $stmt->bindValue(':capacity', $capacity);
+        $stmt->execute();
+
+        $response_content = array(
+            'value' => "success"
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
+        return $response;
+    }
+    //add details to the Hotel tables
+    public function updateHotelAction(Request $request) {
+
+        $callback = $request->get('callback');
+
+        $Lat = $request->query->get('lat');
+        $long= $request->query->get('long');
+        $account_id = $request->query->get('account_id');
+
+        // create prepared statements for corporate account table
+        $conn = $this->get('database_connection');
+        $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, Long = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
+        $stmt->bindValue(':lat', $Lat);
+        $stmt->bindValue(':long', $long);
+        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+
+
+        $stmt->execute();
+
+        $response_content = array(
+            'value' => "success"
+        );
+
+        $response = new JsonResponse($response_content, 200, array());
+        $response->setCallback($callback);
+        return $response;
+    }
 
 }
