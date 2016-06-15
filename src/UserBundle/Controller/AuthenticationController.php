@@ -776,7 +776,7 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE login SET password = :password WHERE Username=:userName;');
+        $stmt = $conn->prepare('UPDATE login SET password = :password WHERE User_Username=:userName;');
         $stmt->bindValue(':password', $password);
         $stmt->bindValue(':userName', $userName);
         $stmt->execute();
