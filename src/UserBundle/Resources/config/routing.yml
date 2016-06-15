@@ -114,7 +114,7 @@ user_driver_data:
     methods:  ['GET']
 
 user_update_traveler:
-      path:   /updateTraveler
+    path:     /updateTraveler
     defaults: { _controller: UserBundle:Authentication:updateTraveler }
     methods:  ['GET']
 
