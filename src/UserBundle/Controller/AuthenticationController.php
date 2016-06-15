@@ -26,6 +26,14 @@ class AuthenticationController extends Controller
         $stmt->execute();
         $result = $stmt->fetchAll();
 
+        if ($stmt->rowCount() > 0){
+            $stmt = $conn->prepare('UPDATE login SET last_login = :timeStamp WHERE User_Username = :userName ;');
+            $timeStamp = date("Y-m-d h:i:sa");
+            $stmt->bindValue(':timeStamp', $timeStamp);
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+        }
+
        $response_content = array(
            'value' => $stmt->rowCount(),
            'result' => $result,
