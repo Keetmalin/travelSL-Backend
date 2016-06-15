@@ -865,7 +865,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, Long = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
+        $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, `Long` = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
         $stmt->bindValue(':lat', $Lat);
         $stmt->bindValue(':long', $long);
         $stmt->bindValue(':Corporate_Account_account_id', $account_id);
