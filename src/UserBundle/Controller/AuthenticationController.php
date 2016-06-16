@@ -17,32 +17,46 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
         $password = $request->query->get('password');
 
+
         // process
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM login WHERE User_Username = :userName AND Password = :password ;');
-        $hashPassword = md5($password);
-        $stmt->bindValue(':userName', $userName);
-        $stmt->bindValue(':password', $hashPassword);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        if ($stmt->rowCount() > 0){
-            $stmt = $conn->prepare('UPDATE login SET last_login = :timeStamp WHERE User_Username = :userName ;');
-            $timeStamp = date("Y-m-d h:i:sa");
-            $stmt->bindValue(':timeStamp', $timeStamp);
+        try{
+            $stmt = $conn->prepare('SELECT * FROM login WHERE User_Username = :userName AND Password = :password ;');
+            $hashPassword = md5($password);
             $stmt->bindValue(':userName', $userName);
+            $stmt->bindValue(':password', $hashPassword);
             $stmt->execute();
+            $result = $stmt->fetchAll();
+
+
+
+            if ($stmt->rowCount() > 0){
+                $stmt = $conn->prepare('UPDATE login SET last_login = :timeStamp WHERE User_Username = :userName ;');
+                $timeStamp = date("Y-m-d h:i:sa");
+                $stmt->bindValue(':timeStamp', $timeStamp);
+                $stmt->bindValue(':userName', $userName);
+                $stmt->execute();
+            }
+
+            $response_content = array(
+                'value' => $stmt->rowCount(),
+                'result' => $result,
+                'result2' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
         }
 
-       $response_content = array(
-           'value' => $stmt->rowCount(),
-           'result' => $result,
-           'result2' => "success"
-        );
-
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
     }
     //this is used to register an user to the User Table and Log in table
     public function registerAction(Request $request) {
@@ -881,5 +895,7 @@ class AuthenticationController extends Controller
         $response->setCallback($callback);
         return $response;
     }
+
+
 
 }
