@@ -71,29 +71,41 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO user (Username,Email, Name) VALUES (:userNameR ,:emailR, :nameR);');
-        $stmt->bindValue(':userNameR', $userNameR);
-        $stmt->bindValue(':nameR', $nameR);
-        $stmt->bindValue(':emailR', $emailR);
+        $conn->beginTransaction();
 
-        $stmt->execute();
+        try{
+            $stmt = $conn->prepare('INSERT INTO user (Username,Email, Name) VALUES (:userNameR ,:emailR, :nameR);');
+            $stmt->bindValue(':userNameR', $userNameR);
+            $stmt->bindValue(':nameR', $nameR);
+            $stmt->bindValue(':emailR', $emailR);
 
-        //create prepared statements for login table
-        $stmt = $conn->prepare('INSERT INTO login (User_Username,Password , category) VALUES (:userNameR ,:passwordR , :category);');
-        $hashPassword = md5($passwordR);
-        $stmt->bindValue(':userNameR', $userNameR);
-        $stmt->bindValue(':passwordR', $hashPassword);
-        $stmt->bindValue(':category', $category);
-        $stmt->execute();
+            $stmt->execute();
 
-        $response_content = array(
-            'value' => "success"
-        );
-        //comment
+            //create prepared statements for login table
+            $stmt = $conn->prepare('INSERT INTO login (User_Username,Password , category) VALUES (:userNameR ,:passwordR , :category);');
+            $hashPassword = md5($passwordR);
+            $stmt->bindValue(':userNameR', $userNameR);
+            $stmt->bindValue(':passwordR', $hashPassword);
+            $stmt->bindValue(':category', $category);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+            //comment
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
 
     }
     //used to register a corporate account
@@ -111,23 +123,34 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO corporate_account (User_Username,Telephone , Address,District,account_id, description) VALUES (:userNameR , :telephone, :Address, :District , :account_id , :description);');
-        $stmt->bindValue(':userNameR', $userNameR);
-        $stmt->bindValue(':telephone', $telephone);
-        $stmt->bindValue(':Address', $Address);
-        $stmt->bindValue(':District', $District);
-        $stmt->bindValue(':account_id', $account_id);
-        $stmt->bindValue(':description', $description);
-        $stmt->execute();
+        $conn->beginTransaction();
+
+        try{
+            $stmt = $conn->prepare('INSERT INTO corporate_account (User_Username,Telephone , Address,District,account_id, description) VALUES (:userNameR , :telephone, :Address, :District , :account_id , :description);');
+            $stmt->bindValue(':userNameR', $userNameR);
+            $stmt->bindValue(':telephone', $telephone);
+            $stmt->bindValue(':Address', $Address);
+            $stmt->bindValue(':District', $District);
+            $stmt->bindValue(':account_id', $account_id);
+            $stmt->bindValue(':description', $description);
+            $stmt->execute();
 
 
-        $response_content = array(
-            'value' => $stmt->rowCount()
-        );
+            $response_content = array(
+                'value' => $stmt->rowCount()
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     //add details to the driver table
     public function registerDriverAction(Request $request) {
@@ -140,19 +163,31 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO ride (Corporate_Account_account_id,vehicle , capacity) VALUES (:Corporate_Account_account_id , :vehicle, :capacity);');
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
-        $stmt->bindValue(':vehicle', $vehicle);
-        $stmt->bindValue(':capacity', $capacity);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('INSERT INTO ride (Corporate_Account_account_id,vehicle , capacity) VALUES (:Corporate_Account_account_id , :vehicle, :capacity);');
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+            $stmt->bindValue(':vehicle', $vehicle);
+            $stmt->bindValue(':capacity', $capacity);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     //add details to the Hotel tables
     public function registerHotelAction(Request $request) {
@@ -165,21 +200,33 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO hotel VALUES (:lat , :long , :Corporate_Account_account_id );');
-        $stmt->bindValue(':lat', $Lat);
-        $stmt->bindValue(':long', $long);
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+        $conn->beginTransaction();
+
+        try{
+            $stmt = $conn->prepare('INSERT INTO hotel VALUES (:lat , :long , :Corporate_Account_account_id );');
+            $stmt->bindValue(':lat', $Lat);
+            $stmt->bindValue(':long', $long);
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
 
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $response_content = array(
+                'value' => "success"
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 //add details to the guids tables
@@ -191,19 +238,31 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO guide VALUES (:Corporate_Account_account_id );');
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+        $conn->beginTransaction();
+
+        try{
+
+            $stmt = $conn->prepare('INSERT INTO guide VALUES (:Corporate_Account_account_id );');
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
 
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $response_content = array(
+                'value' => "success"
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //add details to the photographer tables
     public function registerPhotographerAction(Request $request) {
@@ -214,19 +273,31 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO photographer VALUES (:Corporate_Account_account_id );');
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+        $conn->beginTransaction();
+
+        try{
+
+            $stmt = $conn->prepare('INSERT INTO photographer VALUES (:Corporate_Account_account_id );');
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
 
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $response_content = array(
+                'value' => "success"
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 
@@ -239,18 +310,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,hotel WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = hotel.Corporate_Account_account_id);');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $stmt = $conn->prepare('SELECT * FROM corporate_account,user,hotel WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = hotel.Corporate_Account_account_id);');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load page details of the phptographer
     public function loadPhotographerPageAction(Request $request) {
@@ -258,18 +340,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,photographer WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = photographer.Corporate_Account_account_id);');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM corporate_account,user,photographer WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = photographer.Corporate_Account_account_id);');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 //load page details of the Guides
@@ -278,18 +371,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,guide WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = guide.Corporate_Account_account_id);');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM corporate_account,user,guide WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = guide.Corporate_Account_account_id);');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 //load page details of the Rides
@@ -298,18 +402,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account,user,ride WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = ride.Corporate_Account_account_id);');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM corporate_account,user,ride WHERE (user.username = corporate_account.User_Username) AND (corporate_account.account_id = ride.Corporate_Account_account_id);');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load page details of the Destinations
     public function loadDestinationPageAction(Request $request) {
@@ -317,18 +432,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM location;');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM location;');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 //add new destinations to the database
@@ -344,21 +470,32 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO location VALUES (:locationID ,:nameD, :descriptionD,:latD, :longD , null);');
-        $stmt->bindValue(':locationID', $locationID);
-        $stmt->bindValue(':nameD', $nameD);
-        $stmt->bindValue(':descriptionD', $descriptionD);
-        $stmt->bindValue(':latD', $latD);
-        $stmt->bindValue(':longD', $longD);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('INSERT INTO location VALUES (:locationID ,:nameD, :descriptionD,:latD, :longD , null);');
+            $stmt->bindValue(':locationID', $locationID);
+            $stmt->bindValue(':nameD', $nameD);
+            $stmt->bindValue(':descriptionD', $descriptionD);
+            $stmt->bindValue(':latD', $latD);
+            $stmt->bindValue(':longD', $longD);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //add new contact to the databse
     public function addNewContactAction(Request $request) {
@@ -375,23 +512,34 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO contact VALUES (:contactID ,:nameD, :telephoneD,:addressD, :latD, :longD , null , :categoryD);');
-        $stmt->bindValue(':contactID', $contactID);
-        $stmt->bindValue(':nameD', $nameD);
-        $stmt->bindValue(':telephoneD', $telephoneD);
-        $stmt->bindValue(':addressD', $addressD);
-        $stmt->bindValue(':latD', $latD);
-        $stmt->bindValue(':longD', $longD);
-        $stmt->bindValue(':categoryD', $categoryD);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('INSERT INTO contact VALUES (:contactID ,:nameD, :telephoneD,:addressD, :latD, :longD , null , :categoryD);');
+            $stmt->bindValue(':contactID', $contactID);
+            $stmt->bindValue(':nameD', $nameD);
+            $stmt->bindValue(':telephoneD', $telephoneD);
+            $stmt->bindValue(':addressD', $addressD);
+            $stmt->bindValue(':latD', $latD);
+            $stmt->bindValue(':longD', $longD);
+            $stmt->bindValue(':categoryD', $categoryD);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 
@@ -401,18 +549,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "police";');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "police";');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 //load hospital details from the database
@@ -421,18 +580,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "hospital";');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "hospital";');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load bank details from the databse
     public function loadBankAction(Request $request) {
@@ -440,18 +610,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "bank";');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "bank";');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load airline details from the database
     public function loadAirLineAction(Request $request) {
@@ -459,18 +640,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "airLine";');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM contact WHERE category = "airLine";');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load the traveller details from the database
     public function travelerDataAction(Request $request) {
@@ -480,19 +672,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM user WHERE Username = :userName ;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM user WHERE Username = :userName ;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     ////load hotel data from the database
     public function hotelDataAction(Request $request) {
@@ -502,19 +705,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id WHERE user.Username = :userName;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id WHERE user.Username = :userName;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load guide data from the database
     public function guideDataAction(Request $request) {
@@ -524,19 +738,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load photgrpaher data from the database
     public function photographerDataAction(Request $request) {
@@ -546,19 +771,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username WHERE user.Username = :userName;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //load driver data from the database
     public function driverDataAction(Request $request) {
@@ -568,19 +804,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN ride ON corporate_account.account_id = ride.Corporate_Account_account_id WHERE user.Username = :userName;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM (user LEFT JOIN corporate_account  ON user.Username =corporate_account.User_Username) LEFT JOIN ride ON corporate_account.account_id = ride.Corporate_Account_account_id WHERE user.Username = :userName;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     //update traveler details
@@ -593,19 +840,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE user SET Email = :email , Name = :name WHERE Username=:userName;');
-        $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':email', $email);
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('UPDATE user SET Email = :email , Name = :name WHERE Username=:userName;');
+            $stmt->bindValue(':name', $name);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //creat payment regstrations
     public function makePaymentAction(Request $request) {
@@ -621,23 +879,34 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO payment VALUES (:account_id ,:userName, :date,:time, :amount, :numberOfDays);');
-        $stmt->bindValue(':account_id', $account_id);
-        $stmt->bindValue(':userName', $userName);
-        $stmt->bindValue(':amount', $amount);
-        $stmt->bindValue(':date', $date);
-        $stmt->bindValue(':time', $time);
-        $stmt->bindValue(':numberOfDays', $numberOfDays);
-        $stmt->execute();
+        $conn->beginTransaction();
+
+        try{
+            $stmt = $conn->prepare('INSERT INTO payment VALUES (:account_id ,:userName, :date,:time, :amount, :numberOfDays);');
+            $stmt->bindValue(':account_id', $account_id);
+            $stmt->bindValue(':userName', $userName);
+            $stmt->bindValue(':amount', $amount);
+            $stmt->bindValue(':date', $date);
+            $stmt->bindValue(':time', $time);
+            $stmt->bindValue(':numberOfDays', $numberOfDays);
+            $stmt->execute();
 
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $response_content = array(
+                'value' => "success"
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //get payment messages from the database
     public function getMessagesAction(Request $request) {
@@ -647,19 +916,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM payment WHERE User_Username = :userName ;');
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM payment WHERE User_Username = :userName ;');
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //get the name of the corporate accounts from the database
     public function getCorporateAccountNameAction(Request $request) {
@@ -669,19 +949,30 @@ class AuthenticationController extends Controller
         $account_id = $request->query->get('account_id');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account WHERE account_id = :account_id ;');
-        $stmt->bindValue(':account_id', $account_id);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM corporate_account WHERE account_id = :account_id ;');
+            $stmt->bindValue(':account_id', $account_id);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 //get the list of hotels with their lats and longs
     public function loadMapHotelsAction(Request $request) {
@@ -689,18 +980,29 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM corporate_account LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id ;');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM corporate_account LEFT JOIN hotel ON corporate_account.account_id = hotel.Corporate_Account_account_id ;');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     public function loadContactPageAction(Request $request) {
@@ -708,36 +1010,58 @@ class AuthenticationController extends Controller
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM contact;');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM contact;');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     public function loginDetailsAction(Request $request) {
 
         $callback = $request->get('callback');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT * FROM login;');
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result
-        );
+        try{
+            $stmt = $conn->prepare('SELECT * FROM login;');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     public function addReviewAction(Request $request) {
@@ -750,19 +1074,30 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('INSERT INTO comment (Corporate_Account_account_id , Review) VALUES (:account_id ,:score);');
-        $stmt->bindValue(':account_id', $account_id);
-        $stmt->bindValue(':score', $score);
+        $conn->beginTransaction();
 
-        $stmt->execute();
+        try{
+            $stmt = $conn->prepare('INSERT INTO comment (Corporate_Account_account_id , Review) VALUES (:account_id ,:score);');
+            $stmt->bindValue(':account_id', $account_id);
+            $stmt->bindValue(':score', $score);
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     public function getReviewAction(Request $request) {
@@ -773,21 +1108,32 @@ class AuthenticationController extends Controller
  
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('SELECT review FROM comment WHERE Corporate_Account_account_id = :account_id;');
-        $stmt->bindValue(':account_id', $account_id);
+        $conn->beginTransaction();
 
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+        try{
+            $stmt = $conn->prepare('SELECT review FROM comment WHERE Corporate_Account_account_id = :account_id;');
+            $stmt->bindValue(':account_id', $account_id);
 
-        $response_content = array(
-            'value' => "success",
-            'result' => $result,
-            'count' => $stmt->rowCount()
-        );
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success",
+                'result' => $result,
+                'count' => $stmt->rowCount()
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     public function updatePasswordAction(Request $request) {
@@ -798,19 +1144,30 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE login SET password = :password WHERE User_Username=:userName;');
-        $hashPassword = md5($password);
-        $stmt->bindValue(':password', $hashPassword);
-        $stmt->bindValue(':userName', $userName);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('UPDATE login SET password = :password WHERE User_Username=:userName;');
+            $hashPassword = md5($password);
+            $stmt->bindValue(':password', $hashPassword);
+            $stmt->bindValue(':userName', $userName);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
     public function updateCorporateAction(Request $request) {
@@ -826,22 +1183,33 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE corporate_account SET User_Username = :userNameR, Telephone = :telephone , Address = :Address ,District = :District , description = :description WHERE User_Username = :userNameR;');
-        $stmt->bindValue(':userNameR', $userNameR);
-        $stmt->bindValue(':telephone', $telephone);
-        $stmt->bindValue(':Address', $Address);
-        $stmt->bindValue(':District', $District);
-        $stmt->bindValue(':description', $description);
-        $stmt->execute();
+        $conn->beginTransaction();
+
+        try{
+            $stmt = $conn->prepare('UPDATE corporate_account SET User_Username = :userNameR, Telephone = :telephone , Address = :Address ,District = :District , description = :description WHERE User_Username = :userNameR;');
+            $stmt->bindValue(':userNameR', $userNameR);
+            $stmt->bindValue(':telephone', $telephone);
+            $stmt->bindValue(':Address', $Address);
+            $stmt->bindValue(':District', $District);
+            $stmt->bindValue(':description', $description);
+            $stmt->execute();
 
 
-        $response_content = array(
-            'value' => $stmt->rowCount()
-        );
+            $response_content = array(
+                'value' => $stmt->rowCount()
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     //add details to the driver table
     public function updateDriverAction(Request $request) {
@@ -854,19 +1222,30 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE ride SET vehicle =  :vehicle, capacity = :capacity WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
-        $stmt->bindValue(':vehicle', $vehicle);
-        $stmt->bindValue(':capacity', $capacity);
-        $stmt->execute();
+        $conn->beginTransaction();
 
-        $response_content = array(
-            'value' => "success"
-        );
+        try{
+            $stmt = $conn->prepare('UPDATE ride SET vehicle =  :vehicle, capacity = :capacity WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+            $stmt->bindValue(':vehicle', $vehicle);
+            $stmt->bindValue(':capacity', $capacity);
+            $stmt->execute();
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response_content = array(
+                'value' => "success"
+            );
+
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
     //add details to the Hotel tables
     public function updateHotelAction(Request $request) {
@@ -879,21 +1258,32 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, `Long` = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
-        $stmt->bindValue(':lat', $Lat);
-        $stmt->bindValue(':long', $long);
-        $stmt->bindValue(':Corporate_Account_account_id', $account_id);
+        $conn->beginTransaction();
+
+        try{
+            $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, `Long` = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
+            $stmt->bindValue(':lat', $Lat);
+            $stmt->bindValue(':long', $long);
+            $stmt->bindValue(':Corporate_Account_account_id', $account_id);
 
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $response_content = array(
-            'value' => "success"
-        );
+            $response_content = array(
+                'value' => "success"
+            );
 
-        $response = new JsonResponse($response_content, 200, array());
-        $response->setCallback($callback);
-        return $response;
+            $response = new JsonResponse($response_content, 200, array());
+            $response->setCallback($callback);
+            return $response;
+
+        }
+        catch (\mysqli_sql_exception $e) {
+            $conn->rollBack();
+            $response = $e->getCode();
+            return $response;
+        }
+
     }
 
 
