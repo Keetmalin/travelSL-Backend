@@ -1196,7 +1196,8 @@ class AuthenticationController extends Controller
 
 
             $response_content = array(
-                'value' => $stmt->rowCount()
+                'value' => $stmt->rowCount(),
+                'success' => 'success'
             );
 
             $response = new JsonResponse($response_content, 200, array());

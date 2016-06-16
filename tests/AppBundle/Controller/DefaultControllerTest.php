@@ -144,5 +144,56 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/user/getCorporateAccountName');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('success', $client->getResponse()->getContent());
+
+        //check the corporate account name method
+        $crawler = $client->request('GET', '/user/loadMapHotels');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //check the map details of hotels
+        $crawler = $client->request('GET', '/user/loadMapHotels');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //check the contacts in the database
+        $crawler = $client->request('GET', '/user/loadContactPage');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //check the log in details of each user
+        $crawler = $client->request('GET', '/user/loginDetails');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //add review to database access
+        $crawler = $client->request('GET', '/user/addReview');
+        $this->assertEquals(500, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //get review of each corporate account
+        $crawler = $client->request('GET', '/user/getReview');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //update password of selected account
+        $crawler = $client->request('GET', '/user/updatePassword');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //update corporate account details
+        $crawler = $client->request('GET', '/user/updateCorporate');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //update driver details in my profile
+        $crawler = $client->request('GET', '/user/updateDriver');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
+
+        //update hotel details in my profile
+        $crawler = $client->request('GET', '/user/updateHotel');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('success', $client->getResponse()->getContent());
     }
+
 }
