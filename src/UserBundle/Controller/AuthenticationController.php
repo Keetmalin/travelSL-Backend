@@ -473,7 +473,7 @@ class AuthenticationController extends Controller
         $conn->beginTransaction();
 
         try{
-            $stmt = $conn->prepare('INSERT INTO location VALUES (:locationID ,:nameD, :descriptionD,:latD, :longD , null);');
+            $stmt = $conn->prepare('INSERT INTO location VALUES (:location_id ,:nameD, :descriptionD,:latD, :longD , null);');
             $stmt->bindValue(':locationID', $locationID);
             $stmt->bindValue(':nameD', $nameD);
             $stmt->bindValue(':descriptionD', $descriptionD);
