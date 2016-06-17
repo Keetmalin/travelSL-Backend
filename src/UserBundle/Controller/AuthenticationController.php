@@ -71,9 +71,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO user (Username,Email, Name) VALUES (:userNameR ,:emailR, :nameR);');
             $stmt->bindValue(':userNameR', $userNameR);
             $stmt->bindValue(':nameR', $nameR);
@@ -99,12 +97,6 @@ class AuthenticationController extends Controller
             return $response;
 
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
 
 
     }
@@ -123,9 +115,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO corporate_account (User_Username,Telephone , Address,District,account_id, description) VALUES (:userNameR , :telephone, :Address, :District , :account_id , :description);');
             $stmt->bindValue(':userNameR', $userNameR);
             $stmt->bindValue(':telephone', $telephone);
@@ -144,12 +134,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
     //add details to the driver table
@@ -163,9 +148,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO ride (Corporate_Account_account_id,vehicle , capacity) VALUES (:Corporate_Account_account_id , :vehicle, :capacity);');
             $stmt->bindValue(':Corporate_Account_account_id', $account_id);
             $stmt->bindValue(':vehicle', $vehicle);
@@ -181,12 +164,7 @@ class AuthenticationController extends Controller
             return $response;
 
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
     //add details to the Hotel tables
@@ -200,9 +178,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO hotel VALUES (:lat , :long , :Corporate_Account_account_id );');
             $stmt->bindValue(':lat', $Lat);
             $stmt->bindValue(':long', $long);
@@ -220,12 +196,7 @@ class AuthenticationController extends Controller
             return $response;
 
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 
@@ -238,9 +209,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
 
             $stmt = $conn->prepare('INSERT INTO guide VALUES (:Corporate_Account_account_id );');
             $stmt->bindValue(':Corporate_Account_account_id', $account_id);
@@ -256,12 +225,6 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
 
     }
 //add details to the photographer tables
@@ -273,9 +236,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
 
             $stmt = $conn->prepare('INSERT INTO photographer VALUES (:Corporate_Account_account_id );');
             $stmt->bindValue(':Corporate_Account_account_id', $account_id);
@@ -291,12 +252,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 
@@ -487,7 +443,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        
+
 
 
     }
@@ -506,9 +462,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO contact VALUES (:contactID ,:nameD, :telephoneD,:addressD, :latD, :longD , null , :categoryD);');
             $stmt->bindValue(':contactID', $contactID);
             $stmt->bindValue(':nameD', $nameD);
@@ -527,12 +481,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 
@@ -873,9 +822,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO payment VALUES (:account_id ,:userName, :date,:time, :amount, :numberOfDays);');
             $stmt->bindValue(':account_id', $account_id);
             $stmt->bindValue(':userName', $userName);
@@ -894,12 +841,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 //get payment messages from the database
@@ -1068,9 +1010,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('INSERT INTO comment (Corporate_Account_account_id , Review) VALUES (:account_id ,:score);');
             $stmt->bindValue(':account_id', $account_id);
             $stmt->bindValue(':score', $score);
@@ -1085,12 +1025,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 
