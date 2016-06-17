@@ -472,7 +472,7 @@ class AuthenticationController extends Controller
         $conn = $this->get('database_connection');
         $conn->beginTransaction();
 
-        try{
+        {
             $stmt = $conn->prepare('INSERT INTO location VALUES (:location_id ,:nameD, :descriptionD,:latD, :longD , null);');
             $stmt->bindValue(':location_id', $locationID);
             $stmt->bindValue(':nameD', $nameD);
@@ -490,11 +490,7 @@ class AuthenticationController extends Controller
             return $response;
 
         }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 //add new contact to the databse
