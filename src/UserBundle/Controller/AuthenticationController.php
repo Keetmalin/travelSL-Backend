@@ -470,10 +470,8 @@ class AuthenticationController extends Controller
 
         // create prepared statements for USer table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        {
-            $stmt = $conn->prepare('INSERT INTO location VALUES (:location_id ,:nameD, :descriptionD,:latD, :longD , null);');
+           $stmt = $conn->prepare('INSERT INTO location VALUES (:location_id ,:nameD, :descriptionD,:latD, :longD , null);');
             $stmt->bindValue(':location_id', $locationID);
             $stmt->bindValue(':nameD', $nameD);
             $stmt->bindValue(':descriptionD', $descriptionD);
@@ -489,7 +487,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
+        
 
 
     }
