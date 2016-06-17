@@ -783,9 +783,7 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('UPDATE user SET Email = :email , Name = :name WHERE Username=:userName;');
             $stmt->bindValue(':name', $name);
             $stmt->bindValue(':email', $email);
@@ -800,12 +798,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
 //creat payment regstrations
@@ -1073,9 +1066,7 @@ class AuthenticationController extends Controller
         $userName = $request->query->get('userName');
 
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('UPDATE login SET password = :password WHERE User_Username=:userName;');
             $hashPassword = md5($password);
             $stmt->bindValue(':password', $hashPassword);
@@ -1090,12 +1081,6 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
 
     }
 
@@ -1112,9 +1097,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('UPDATE corporate_account SET User_Username = :userNameR, Telephone = :telephone , Address = :Address ,District = :District , description = :description WHERE User_Username = :userNameR;');
             $stmt->bindValue(':userNameR', $userNameR);
             $stmt->bindValue(':telephone', $telephone);
@@ -1133,12 +1116,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
     //add details to the driver table
@@ -1152,9 +1130,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('UPDATE ride SET vehicle =  :vehicle, capacity = :capacity WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
             $stmt->bindValue(':Corporate_Account_account_id', $account_id);
             $stmt->bindValue(':vehicle', $vehicle);
@@ -1169,12 +1145,7 @@ class AuthenticationController extends Controller
             $response->setCallback($callback);
             return $response;
 
-        }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
+
 
     }
     //add details to the Hotel tables
@@ -1188,9 +1159,7 @@ class AuthenticationController extends Controller
 
         // create prepared statements for corporate account table
         $conn = $this->get('database_connection');
-        $conn->beginTransaction();
 
-        try{
             $stmt = $conn->prepare('UPDATE hotel SET Lat =  :lat, `Long` = :long WHERE Corporate_Account_account_id = :Corporate_Account_account_id ;');
             $stmt->bindValue(':lat', $Lat);
             $stmt->bindValue(':long', $long);
@@ -1208,13 +1177,7 @@ class AuthenticationController extends Controller
             return $response;
 
         }
-        catch (\mysqli_sql_exception $e) {
-            $conn->rollBack();
-            $response = $e->getCode();
-            return $response;
-        }
 
-    }
 
 
 
